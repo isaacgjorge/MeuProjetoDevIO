@@ -6,12 +6,14 @@
             <div class="form-group">
                 <label class="col-md-2 control-label" for="nome">Nome Completo</label>
                 <div class="col-md-10">
-                    <input formControlName="nome" class="form-control" id="nome" type="text" placeholder="Nome (requerido)" 
-                        [ngClass]="{'is-invalid': displayMessage.nome}">
-                    
-                    <span class="text-danger" *ngIf="displayMessage.nome">
-                        <p [innerHTML]="displayMessage.nome"></p>
-                    </span>                  
+                    <input formControlName="nome" class="form-control" id="nome" type="text" placeholder="Nome (requerido)"
+                        [ngClass]="{'is-invalid': cadastroForm.get('nome').errors && 
+                            (cadastroForm.get('nome').dirty || cadastroForm.get('nome').touched)}">
+
+                    <span class="text-danger" *ngIf="cadastroForm.get('nome').errors && 
+                            (cadastroForm.get('nome').dirty || cadastroForm.get('nome').touched)">
+                        <p>Preencha o campo nome</p>
+                    </span>
                 </div>
                
             </div>
@@ -20,21 +22,30 @@
                 <label class="col-md-2 control-label" for="cpf" >CPF</label>
                 <div class="col-md-10">
                     <input formControlName="cpf" class="form-control" id="cpf" 
-                        type="text" placeholder="CPF (requerido)" cpf [textMask]="{mask: MASKS.cpf.textMask}"
-                        [ngClass]="{'is-invalid': displayMessage.cpf}">
-                    <span class="text-danger" *ngIf="displayMessage.cpf">
-                        <p [innerHTML]="displayMessage.cpf"></p>
-                    </span>
+                    type="text" placeholder="CPF (requerido)" cpf [textMask]="{mask: MASKS.cpf.textMask}">
+                    <span class="text-danger" 
+                    *ngIf="cadastroForm.get('cpf')?.errors?.cpf &&
+                        (cadastroForm.get('cpf').dirty || cadastroForm.get('cpf').touched)">
+                    <p>CPF invalido</p>
+                </span>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-md-2 control-label" for="email">E-mail</label>
                 <div class="col-md-10">
-                    <input [ngClass]="{'is-invalid': displayMessage.email}"
+                    <input [ngClass]="{'is-invalid': cadastroForm.get('email').errors &&
+                            (cadastroForm.get('email').dirty || cadastroForm.get('email').touched)}"
                         formControlName="email" class="form-control" id="email" type="text" placeholder="E-mail (requerido)">
-                    <span class="text-danger" *ngIf="displayMessage.email">
-                        <p [innerHTML]="displayMessage.email"></p>
+                    <span class="text-danger" 
+                        *ngIf="cadastroForm.get('email')?.errors?.required && 
+                            (cadastroForm.get('email').dirty || cadastroForm.get('email').touched)">
+                        <p>Preencha o campo email</p>
+                    </span>
+                    <span class="text-danger" 
+                        *ngIf="cadastroForm.get('email')?.errors?.email &&
+                            (cadastroForm.get('email').dirty || cadastroForm.get('email').touched)">
+                        <p>E-mail em formato invalido</p>
                     </span>
                 </div>
             </div>
@@ -42,10 +53,11 @@
             <div class="form-group">
                 <label class="col-md-2 control-label" for="senha">Senha</label>
                 <div class="col-md-10">
-                    <input [ngClass]="{'is-invalid': displayMessage.senha}" formControlName="senha" class="form-control" id="senha" type="password" placeholder="Senha (requerido)">
+                    <input formControlName="senha" class="form-control" id="senha" type="password" placeholder="Senha (requerido)">
                     <span class="text-danger" 
-                        *ngIf="displayMessage.senha">
-                        <p [innerHTML]="displayMessage.senha"></p>
+                        *ngIf="cadastroForm.get('senha')?.errors?.rangeLength &&
+                            (cadastroForm.get('senha').dirty || cadastroForm.get('senha').touched)">
+                        <p>Tamanho invalido</p>
                     </span>
                 </div>
             </div>
@@ -53,12 +65,8 @@
             <div class="form-group">
                 <label class="col-md-2 control-label" for="senhaConfirmacao">Confirme a Senha</label>
                 <div class="col-md-10">
-                    <input [ngClass]="{'is-invalid': displayMessage.senhaConfirmacao}" formControlName="senhaConfirmacao" class="form-control" id="senhaConfirmacao" type="password" placeholder="Confirme a Senha (requerido)">
-                    <span class="text-danger" *ngIf="displayMessage.senhaConfirmacao">
-                        <p [innerHTML]="displayMessage.senhaConfirmacao"></p>
-                    </span>
+                    <input formControlName="senhaConfirmacao" class="form-control" id="senhaConfirmacao" type="password" placeholder="Confirme a Senha (requerido)">
                 </div>
-
             </div>
 
             <div class="form-group">
